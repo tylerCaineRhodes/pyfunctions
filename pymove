@@ -1,0 +1,31 @@
+#! /Library/Frameworks/Python.framework/Versions/3.8/bin/python3
+
+import os
+
+from os.path import exists
+from sys import argv
+
+arguments = argv
+argument_length = len(arguments)
+
+if argument_length < 2:
+    print(f"You are missing both arguments.\nNow exiting...")
+    exit()
+elif argument_length < 3:
+    print(f"You are missing the destination file.\nNow exiting...")
+    exit()
+
+file_to_move = input("File to move: ")
+new_file = input("Where to move file to: ")
+
+if exists(new_file):
+    print(f"File named {new_file} already exists!\n Exiting...")
+    exit()
+
+if not exists(file_to_move):
+    print(f"File named {file_to_move} does not exist!\n Exiting...")
+    exit()
+
+os.rename(file_to_move, new_file)
+
+print(f"Moved {file_to_move} to {new_file}!")
