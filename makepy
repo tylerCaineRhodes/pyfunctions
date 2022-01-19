@@ -1,0 +1,29 @@
+#! /Library/Frameworks/Python.framework/Versions/3.8/bin/python3
+
+import os
+import stat
+import sys
+
+from pathlib import Path
+from os.path import exists
+
+filename=input("Name of file: ")
+executable_path=sys.executable
+
+if exists(filename):
+    print("File already exists! Exiting...")
+    exit()
+
+Path(filename).touch()
+
+st = os.stat(filename)
+
+os.chmod(filename, st.st_mode | stat.S_IEXEC)
+
+file = open(filename, "w")
+line = f"#! {executable_path}"
+
+file.writelines(line)
+file.close()
+
+print(f"Created {filename}!")
